@@ -3,7 +3,7 @@ kind: ClusterConfig
 
 metadata:
   name: roboshop
-  region: es-east-1
+  region: us-east-1
 
 managedNodeGroups:
   - name: spot
