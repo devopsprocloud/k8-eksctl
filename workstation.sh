@@ -83,21 +83,25 @@ ln -s /opt/kubectx/kubens /usr/local/bin/kubens
 VALIDATE $? "Installing kubens"
 
 # Installing Helm 
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-chmod 700 get_helm.sh
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 
+chmod 700 get_helm.sh 
 ./get_helm.sh
 VALIDATE $? "Installing Helm"
 
-git clone https://github.com/devopsprocloud/k8-eksctl.git /home/ec2-user/k8-eksctl
+
+mkdir -p /home/ec2-user/k8-eksctl
+VALIDATE $? "Creating '/k8-eksctl' directory"
+
+git clone https://github.com/devopsprocloud/k8-eksctl.git /home/ec2-user/k8-eksctl 
 VALIDATE $? "cloning k8-eksctl repo"
 
 cd /home/ec2-user/k8-eksctl
-VALIDATE $? "Go to '/k8-eksctl' directory" &>> $LOGFILE
+VALIDATE $? "Go to '/k8-eksctl' directory" 
 
 eksctl create cluster --config-file=eks.yaml 
 VALIDATE $? "Installing ekscluster"
 
-helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver 
 helm upgrade --install aws-ebs-csi-driver \
     --namespace kube-system \
     aws-ebs-csi-driver/aws-ebs-csi-driver
