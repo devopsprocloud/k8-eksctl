@@ -4,6 +4,7 @@ resource "aws_instance" "web" {
   vpc_security_group_ids = [aws_security_group.allow_eksctl.id]
   subnet_id = "subnet-0872f08f5da457eb0"
   user_data = file("workstation.sh")
+  iam_instance_profile = "EC2FullAccess"
 
   tags = {
     Name = "eksctl-workstation"

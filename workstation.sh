@@ -89,14 +89,21 @@ chmod 700 get_helm.sh
 
 VALIDATE $? "Installing Helm"
 
-# Installing K9s
-curl -sS https://webinstall.dev/k9s | bash
 
-VALIDATE $? "Installing K9s"
+# # Installing K9s
+# curl -sS https://webinstall.dev/k9s | bash
+# VALIDATE $? "Installing K9s"
+
+git clone https://github.com/devopsprocloud/k8-eksctl.git 
+VALIDATE $? "cloning k8-eksctl repo"
+
+cd /home/ec2-user/k8-eksctl
+VALIDATE $? "Go to '/k8-eksctl' directory" &>> $LOGFILE
+
+eksctl create cluster --config-file=eks.yaml 
+VALIDATE $? "Installing ekscluster"
 
 helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver
-helm repo update
-
 helm upgrade --install aws-ebs-csi-driver \
     --namespace kube-system \
     aws-ebs-csi-driver/aws-ebs-csi-driver
