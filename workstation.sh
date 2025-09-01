@@ -86,15 +86,9 @@ VALIDATE $? "Installing kubens"
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
-
 VALIDATE $? "Installing Helm"
 
-
-# # Installing K9s
-# curl -sS https://webinstall.dev/k9s | bash
-# VALIDATE $? "Installing K9s"
-
-git clone https://github.com/devopsprocloud/k8-eksctl.git 
+git clone https://github.com/devopsprocloud/k8-eksctl.git /home/ec2-user/k8-eksctl
 VALIDATE $? "cloning k8-eksctl repo"
 
 cd /home/ec2-user/k8-eksctl
