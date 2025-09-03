@@ -1,10 +1,16 @@
 resource "aws_instance" "web" {
   ami           = data.aws_ami.rhel-9.id
-  instance_type = "t2.micro"
+  instance_type = "t3.small"
   vpc_security_group_ids = [aws_security_group.allow_eksctl.id]
   subnet_id = "subnet-0872f08f5da457eb0"
   user_data = file("workstation.sh")
   iam_instance_profile = "EC2FullAccess"
+
+  root_block_device {
+    volume_size = 30      
+    volume_type = "gp3"    
+    delete_on_termination = true
+  }
 
   tags = {
     Name = "eksctl-workstation"

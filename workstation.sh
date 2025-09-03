@@ -88,7 +88,7 @@ chmod 700 get_helm.sh
 ./get_helm.sh
 VALIDATE $? "Installing Helm"
 
-
+# Creating /k8-eksctl directory
 mkdir -p /home/ec2-user/k8-eksctl
 VALIDATE $? "Creating '/k8-eksctl' directory"
 
@@ -101,8 +101,7 @@ VALIDATE $? "Go to '/k8-eksctl' directory"
 eksctl create cluster --config-file=eks.yaml 
 VALIDATE $? "Installing ekscluster"
 
-aws eks update-kubeconfig --region us-east-1 --name roboshop
-
+# aws eks update-kubeconfig --region us-east-1 --name roboshop
 
 helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver 
 helm upgrade --install aws-ebs-csi-driver \
