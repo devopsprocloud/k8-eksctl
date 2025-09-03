@@ -101,7 +101,6 @@ VALIDATE $? "Go to '/k8-eksctl' directory"
 eksctl create cluster --config-file=eks.yaml 
 VALIDATE $? "Installing ekscluster"
 
-# aws eks update-kubeconfig --region us-east-1 --name roboshop
 
 helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver 
 helm upgrade --install aws-ebs-csi-driver \
@@ -109,3 +108,13 @@ helm upgrade --install aws-ebs-csi-driver \
     aws-ebs-csi-driver/aws-ebs-csi-driver
 
 VALIDATE $? "Installing EBS CSI Driver"
+
+
+mkdir -p /home/ec2-user/k8-databases
+VALIDATE $? "Creating '/k8-databases' directory"
+
+git clone https://github.com/devopsprocloud/k8-databases.git /home/ec2-user/k8-databases
+VALIDATE $? "cloning k8-databases repo"
+
+# aws eks update-kubeconfig --region us-east-1 --name roboshop
+# curl -sS https://webinstall.dev/k9s | bash
